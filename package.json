@@ -23,8 +23,11 @@
 	],
 	"type": "module",
 	"scripts": {
+		"ci": "pnpm build && pnpm check-format",
+		"build": "tsc",
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
+		"check-format": "prettier --check .",
 		"commit": "git cz"
 	},
 	"devDependencies": {
