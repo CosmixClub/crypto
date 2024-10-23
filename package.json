@@ -9,6 +9,7 @@
 	"author": "Gepetojj <contato.gepetojj@gmail.com>",
 	"license": "MIT",
 	"main": "index.js",
+	"packageManager": "pnpm@9.12.2",
 	"scripts": {
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
