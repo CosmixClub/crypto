@@ -2,14 +2,26 @@
 	"name": "@cosmixclub/crypto",
 	"version": "1.0.0",
 	"description": "Criptografia determinística de informações",
-	"keywords": [
-		"crypto",
-		"scrypt"
-	],
 	"author": "Gepetojj <contato.gepetojj@gmail.com>",
 	"license": "MIT",
 	"main": "index.js",
 	"packageManager": "pnpm@9.12.2",
+	"keywords": [
+		"crypto",
+		"scrypt"
+	],
+	"homepage": "https://github.com/cosmixclub/crypto",
+	"bugs": {
+		"url": "https://github.com/cosmixclub/crypto/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cosmixclub/crypto.git"
+	},
+	"files": [
+		"dist"
+	],
+	"type": "module",
 	"scripts": {
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
