@@ -4,7 +4,7 @@
 	"description": "Criptografia determinística de informações",
 	"author": "Gepetojj <contato.gepetojj@gmail.com>",
 	"license": "MIT",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"packageManager": "pnpm@9.12.2",
 	"keywords": [
 		"crypto",
@@ -22,15 +22,24 @@
 		"dist"
 	],
 	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./dist/index.js",
+			"default": "./dist/index.cjs"
+		}
+	},
 	"scripts": {
-		"ci": "pnpm build && pnpm check-format",
-		"build": "tsc",
+		"ci": "pnpm build && pnpm check-format && pnpm check-exports && pnpm lint",
+		"build": "tsup",
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
 		"check-format": "prettier --check .",
-		"commit": "git cz"
+		"commit": "git cz",
+		"check-exports": "attw --pack ."
 	},
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.16.4",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
 		"@types/node": "^22.7.9",
 		"@typescript-eslint/eslint-plugin": "^8.11.0",
@@ -43,6 +52,7 @@
 		"eslint-plugin-perfectionist": "^3.9.1",
 		"eslint-plugin-prettier": "^5.2.1",
 		"prettier": "^3.3.3",
+		"tsup": "^8.3.0",
 		"typescript": "^5.6.3"
 	},
 	"config": {
