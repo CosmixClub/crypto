@@ -1,5 +1,3 @@
-### README - Documentação do Pacote de Criptografia
-
 ## @cosmixclub/crypto
 
 Este pacote fornece funções robustas de criptografia e descriptografia utilizando o algoritmo AES-256-GCM com chaves derivadas por meio de Argon2 e suporte para operações de criptografia em strings e objetos aninhados. Ele é construído para garantir segurança e integridade dos dados em aplicações que exigem alta proteção.

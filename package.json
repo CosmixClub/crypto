@@ -1,6 +1,6 @@
 {
 	"name": "@cosmixclub/crypto",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Criptografia determinística de informações",
 	"author": "Gepetojj <contato.gepetojj@gmail.com>",
 	"license": "MIT",
@@ -22,6 +22,7 @@
 		"dist"
 	],
 	"type": "module",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
