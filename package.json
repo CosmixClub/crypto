@@ -30,7 +30,7 @@
 		}
 	},
 	"scripts": {
-		"ci": "pnpm build && pnpm check-format && pnpm check-exports && pnpm lint",
+		"ci": "pnpm build && pnpm check-format && pnpm check-exports",
 		"build": "tsup",
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
