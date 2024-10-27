@@ -4,7 +4,7 @@ export * from "./errors";
 export { keyBuilder } from "./key-builder";
 
 export type CryptoConfig = {
-	keys: string[];
+	keys?: string[];
 	privacyKey: string;
 	privacySalt: string;
 };

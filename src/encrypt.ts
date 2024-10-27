@@ -19,7 +19,7 @@ type EncryptNestedKeys<I, K extends string> = K extends `${infer P}.${infer Rest
 	: { [Key in keyof I]: Key extends K ? string : I[Key] };
 
 export const encrypt = (config: CryptoConfig) => {
-	const key = keyBuilder(config.privacyKey, config.privacySalt, ...config.keys);
+	const key = keyBuilder(config.privacyKey, config.privacySalt, ...(config.keys || []));
 
 	/**
 	 * Função interna para criptografar uma string usando o algoritmo AES-256-GCM.
