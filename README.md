@@ -4,30 +4,45 @@ Este pacote fornece funções robustas de criptografia e descriptografia utiliza
 
 ### Índice
 
--   [@cosmixclub/crypto](#cosmixclubcrypto)
-    -   [Índice](#índice)
--   [Instalação](#instalação)
--   [Uso](#uso)
-    -   [Criptografando uma String](#criptografando-uma-string)
-    -   [Criptografando Objetos](#criptografando-objetos)
-    -   [Descriptografando uma String](#descriptografando-uma-string)
-    -   [Descriptografando Objetos](#descriptografando-objetos)
--   [API](#api)
-    -   [Funções de Criptografia](#funções-de-criptografia)
-        -   [`encrypt(config: CryptoConfig)`](#encryptconfig-cryptoconfig)
-    -   [Funções de Descriptografia](#funções-de-descriptografia)
-        -   [`decrypt(config: CryptoConfig)`](#decryptconfig-cryptoconfig)
--   [Erros](#erros)
-    -   [Tipos de Erros](#tipos-de-erros)
--   [Contribuição](#contribuição)
+- [@cosmixclub/crypto](#cosmixclubcrypto)
+	- [Índice](#índice)
+- [Instalação](#instalação)
+- [Uso](#uso)
+	- [Configurando](#configurando)
+	- [Criptografando uma String](#criptografando-uma-string)
+	- [Criptografando Objetos](#criptografando-objetos)
+	- [Descriptografando uma String](#descriptografando-uma-string)
+	- [Descriptografando Objetos](#descriptografando-objetos)
+- [API](#api)
+	- [Funções de Criptografia](#funções-de-criptografia)
+		- [`encrypt(config: CryptoConfig)`](#encryptconfig-cryptoconfig)
+	- [Funções de Descriptografia](#funções-de-descriptografia)
+		- [`decrypt(config: CryptoConfig)`](#decryptconfig-cryptoconfig)
+- [Erros](#erros)
+	- [Tipos de Erros](#tipos-de-erros)
+- [Contribuição](#contribuição)
 
 ## Instalação
 
 ```bash
-npm install @cosmixclub/crypto
+pnpm add @cosmixclub/crypto
 ```
 
 ## Uso
+
+### Configurando
+
+As funções `encrypt` e `decrypt` necessitam de um objeto de configuração com as chaves secretas e contexto adicional (opcional). Tome cuidado com o armazenamento das suas chaves e contexto, vazamentos irão comprometer a segurança dos seus dados.
+
+```typescript
+import { type CryptoConfig } from "@cosmixclub/crypto";
+
+const config: CryptoConfig = {
+	privacyKey: "uma_chave_privada_secreta_de_32_caracteres_no_minimo",
+	privacySalt: "um_salt_aleatorio_de_16_caracteres_no_minimo",
+	context: ["context1", "context2"], // Ou não atribua nada
+};
+```
 
 ### Criptografando uma String
 
@@ -36,12 +51,6 @@ Você pode usar a função `fromString` para criptografar uma string de texto si
 ```typescript
 import { encrypt } from "@cosmixclub/crypto";
 
-const config = {
-	privacyKey: "uma_chave_privada_secreta_de_32_caracteres_no_minimo",
-	privacySalt: "um_salt_aleatorio",
-	keys: ["context1", "context2"],
-};
-
 const encryptedString = encrypt(config).fromString("Hello World");
 console.log("Encrypted String:", encryptedString);
 ```
@@ -49,6 +58,8 @@ console.log("Encrypted String:", encryptedString);
 ### Criptografando Objetos
 
 A função `fromObject` permite criptografar seletivamente as propriedades de um objeto, incluindo suporte para objetos aninhados e arrays.
+
+Assim como na função `decrypt`, o usuário tem a opção de passar uma lista de chaves do objeto para selecionar quais valores serão decriptados. Se nenhum valor for passado, ou a lista não for passada, todos os valores serão criptografados/decriptografados.
 
 ```typescript
 import { encrypt } from "@cosmixclub/crypto";
