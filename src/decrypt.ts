@@ -6,7 +6,7 @@ import { keyBuilder } from "./key-builder";
 
 export const decrypt = (config: CryptoConfig) => {
 	// Deriva a chave de descriptografia usando a privacyKey e os demais parâmetros do config
-	const key = keyBuilder(config.privacyKey, config.privacySalt, ...(config.keys || []));
+	const key = keyBuilder(config.privacyKey, config.privacySalt, ...(config.context || config.keys || []));
 
 	/**
 	 * Função interna para descriptografar uma string criptografada no formato JSON usando o algoritmo AES-256-GCM.
