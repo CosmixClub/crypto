@@ -46,3 +46,10 @@ export class DecryptionFailedError extends CryptoError {
 		this.name = "DecryptionFailedError";
 	}
 }
+
+export class HashFailedError extends CryptoError {
+	constructor(message: string) {
+		super(message);
+		this.name = "HashFailedError";
+	}
+}

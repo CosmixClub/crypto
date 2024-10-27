@@ -1,3 +1,4 @@
+export { hash, type HashAlgorithm } from "./hash";
 export { decrypt } from "./decrypt";
 export { encrypt } from "./encrypt";
 export * from "./errors";

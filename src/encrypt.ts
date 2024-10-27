@@ -4,13 +4,13 @@ import type { CryptoConfig } from ".";
 import { EncryptionFailedError } from "./errors";
 import { keyBuilder } from "./key-builder";
 
-type DotNotationKeys<T> = T extends object
+export type DotNotationKeys<T> = T extends object
 	? {
 			[K in keyof T]: K extends string ? (T[K] extends object ? `${K}.${DotNotationKeys<T[K]>}` | K : K) : never;
 		}[keyof T]
 	: never;
 
-type EncryptNestedKeys<I, K extends string> = K extends `${infer P}.${infer Rest}`
+export type EncryptNestedKeys<I, K extends string> = K extends `${infer P}.${infer Rest}`
 	? P extends keyof I
 		? I[P] extends object
 			? { [Key in keyof I]: Key extends P ? EncryptNestedKeys<I[Key], Rest> : I[Key] }
