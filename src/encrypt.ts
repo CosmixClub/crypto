@@ -1,6 +1,7 @@
 import * as crypto from "node:crypto";
 
 import type { CryptoConfig } from ".";
+import { CryptoError } from "../dist";
 import { EncryptionFailedError } from "./errors";
 import { keyBuilder } from "./key-builder";
 
@@ -67,13 +68,15 @@ export const encrypt = (config: CryptoConfig) => {
 		keys = keys || (Object.keys(obj) as K[]);
 
 		const encryptValue = (value: unknown, path: string): unknown => {
+			if (!keys.includes(path as K)) return value;
+
 			if (Array.isArray(value)) {
 				// Se for um array, serializa e encripta
-				return keys.includes(path as K) ? algo(JSON.stringify(value)) : value;
+				return algo(JSON.stringify(value));
 			} else if (typeof value === "object" && value !== null) {
 				// Verifica se o objeto é criptografável
 				if (isComplexType(value)) {
-					throw new Error(`Tipo não suportado para criptografia em ${path}`);
+					throw new CryptoError(`Tipo não suportado para criptografia em ${path}`);
 				}
 				// Criptografa o objeto inteiro ou passa para suas propriedades
 				return keys.includes(path as K)
@@ -81,11 +84,10 @@ export const encrypt = (config: CryptoConfig) => {
 					: fromObject(value as Record<string, unknown>, filterNestedKeys(keys.map(String), path));
 			}
 			// Criptografa os valores primitivos
-			return keys.includes(path as K) ? algo(String(value)) : value;
+			return algo(String(value));
 		};
 
 		const encryptedEntries = Object.entries(obj).map(([key, value]) => [key, encryptValue(value, key)]);
-
 		return Object.fromEntries(encryptedEntries) as EncryptNestedKeys<I, K>;
 	};
 

@@ -88,9 +88,11 @@ export const decrypt = (config: CryptoConfig) => {
 		list = list || Object.keys(obj);
 
 		const decryptValue = (value: unknown, path: string): unknown => {
+			if (!list.includes(path)) return value;
+
 			if (Array.isArray(value)) {
 				// Se for um array, descriptografa e parseia
-				return list.includes(path) ? JSON.parse(algo(String(value))) : value;
+				return JSON.parse(algo(String(value)));
 			} else if (typeof value === "object" && value !== null) {
 				// Verifica se o objeto pode ser descriptografado
 				if (isComplexType(value)) {
@@ -101,12 +103,12 @@ export const decrypt = (config: CryptoConfig) => {
 					? JSON.parse(algo(JSON.stringify(value)))
 					: fromObject(value as Record<string, unknown>, filterNestedKeys(list, path));
 			}
+
 			// Descriptografa os valores primitivos
-			return list.includes(path) ? algo(String(value)) : value;
+			return algo(String(value));
 		};
 
 		const decryptedEntries = Object.entries(obj).map(([key, value]) => [key, decryptValue(value, key)]);
-
 		return Object.fromEntries(decryptedEntries) as I;
 	};
 
