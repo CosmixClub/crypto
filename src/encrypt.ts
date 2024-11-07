@@ -1,8 +1,7 @@
 import * as crypto from "node:crypto";
 
 import type { CryptoConfig } from ".";
-import { CryptoError } from "../dist";
-import { EncryptionFailedError } from "./errors";
+import { CryptoError, EncryptionFailedError } from "./errors";
 import { keyBuilder } from "./key-builder";
 
 export type DotNotationKeys<T> = T extends object
